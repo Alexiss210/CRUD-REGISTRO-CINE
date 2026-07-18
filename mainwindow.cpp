@@ -399,3 +399,61 @@ void MainWindow::eliminarProducto()
     }
 }
 
+void MainWindow::buscarProducto()
+{
+    if (ui->txtCodigo->text().trimmed().isEmpty()) {
+        QMessageBox::warning(
+            this,
+            "Código requerido",
+            "Ingrese el código que desea buscar."
+            );
+
+        return;
+    }
+
+    int codigo = ui->txtCodigo->text().toInt();
+
+    int indice = buscarIndicePorCodigo(codigo);
+
+    if (indice == -1) {
+        QMessageBox::information(
+            this,
+            "Producto no encontrado",
+            "No existe un producto con ese código."
+            );
+
+        return;
+    }
+
+    indiceSeleccionado = indice;
+
+    const Producto &producto = productos[indice];
+
+    ui->txtNombre->setText(producto.nombre);
+
+    int posicionCategoria =
+        ui->cmbCategoria->findText(producto.categoria);
+
+    ui->cmbCategoria->setCurrentIndex(posicionCategoria);
+
+    ui->txtPrecio->setText(
+        QString::number(producto.precio, 'f', 2)
+        );
+
+    ui->txtStock->setText(
+        QString::number(producto.stock)
+        );
+
+    ui->tblProductos->selectRow(indice);
+
+    ui->btnGuardar->setEnabled(false);
+    ui->btnEditar->setEnabled(true);
+    ui->btnEliminar->setEnabled(true);
+
+    QMessageBox::information(
+        this,
+        "Producto encontrado",
+        "El producto fue encontrado correctamente."
+        );
+}
+
