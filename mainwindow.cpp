@@ -188,3 +188,42 @@ int MainWindow::buscarIndicePorCodigo(int codigo)
     return -1;
 }
 
+void MainWindow::guardarProducto()
+{
+    if (!validarFormulario()) {
+        return;
+    }
+
+    int codigo = ui->txtCodigo->text().toInt();
+
+    if (buscarIndicePorCodigo(codigo) != -1) {
+        QMessageBox::warning(
+            this,
+            "Código duplicado",
+            "Ya existe un producto con ese código."
+            );
+
+        return;
+    }
+
+    Producto producto;
+
+    producto.codigo = codigo;
+    producto.nombre = ui->txtNombre->text().trimmed();
+    producto.categoria = ui->cmbCategoria->currentText();
+    producto.precio = ui->txtPrecio->text().toDouble();
+    producto.stock = ui->txtStock->text().toInt();
+
+    productos.append(producto);
+
+    guardarProductosEnArchivo();
+    actualizarTabla();
+    limpiarFormulario();
+
+    QMessageBox::information(
+        this,
+        "Producto guardado",
+        "El producto se guardó correctamente."
+        );
+}
+
