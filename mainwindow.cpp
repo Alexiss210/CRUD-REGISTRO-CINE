@@ -273,3 +273,39 @@ void MainWindow::actualizarTabla()
     }
 }
 
+void MainWindow::seleccionarProducto(int fila, int columna)
+{
+    Q_UNUSED(columna);
+
+    if (fila < 0 || fila >= productos.size()) {
+        return;
+    }
+
+    indiceSeleccionado = fila;
+
+    const Producto &producto = productos[fila];
+
+    ui->txtCodigo->setText(
+        QString::number(producto.codigo)
+        );
+
+    ui->txtNombre->setText(producto.nombre);
+
+    int posicionCategoria =
+        ui->cmbCategoria->findText(producto.categoria);
+
+    ui->cmbCategoria->setCurrentIndex(posicionCategoria);
+
+    ui->txtPrecio->setText(
+        QString::number(producto.precio, 'f', 2)
+        );
+
+    ui->txtStock->setText(
+        QString::number(producto.stock)
+        );
+
+    ui->btnGuardar->setEnabled(false);
+    ui->btnEditar->setEnabled(true);
+    ui->btnEliminar->setEnabled(true);
+}
+
