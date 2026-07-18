@@ -309,3 +309,56 @@ void MainWindow::seleccionarProducto(int fila, int columna)
     ui->btnEliminar->setEnabled(true);
 }
 
+void MainWindow::editarProducto()
+{
+    if (indiceSeleccionado == -1) {
+        QMessageBox::warning(
+            this,
+            "Sin selección",
+            "Seleccione un producto de la tabla."
+            );
+
+        return;
+    }
+
+    if (!validarFormulario()) {
+        return;
+    }
+
+    int nuevoCodigo = ui->txtCodigo->text().toInt();
+
+    int indiceCodigo =
+        buscarIndicePorCodigo(nuevoCodigo);
+
+    if (indiceCodigo != -1 &&
+        indiceCodigo != indiceSeleccionado) {
+
+        QMessageBox::warning(
+            this,
+            "Código duplicado",
+            "Ya existe otro producto con ese código."
+            );
+
+        return;
+    }
+
+    Producto &producto =
+        productos[indiceSeleccionado];
+
+    producto.codigo = nuevoCodigo;
+    producto.nombre = ui->txtNombre->text().trimmed();
+    producto.categoria = ui->cmbCategoria->currentText();
+    producto.precio = ui->txtPrecio->text().toDouble();
+    producto.stock = ui->txtStock->text().toInt();
+
+    guardarProductosEnArchivo();
+    actualizarTabla();
+    limpiarFormulario();
+
+    QMessageBox::information(
+        this,
+        "Producto actualizado",
+        "El producto fue actualizado correctamente."
+        );
+}
+
