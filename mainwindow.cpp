@@ -227,3 +227,49 @@ void MainWindow::guardarProducto()
         );
 }
 
+void MainWindow::actualizarTabla()
+{
+    ui->tblProductos->setRowCount(productos.size());
+
+    for (int fila = 0; fila < productos.size(); fila++) {
+
+        const Producto &producto = productos[fila];
+
+        ui->tblProductos->setItem(
+            fila,
+            0,
+            new QTableWidgetItem(
+                QString::number(producto.codigo)
+                )
+            );
+
+        ui->tblProductos->setItem(
+            fila,
+            1,
+            new QTableWidgetItem(producto.nombre)
+            );
+
+        ui->tblProductos->setItem(
+            fila,
+            2,
+            new QTableWidgetItem(producto.categoria)
+            );
+
+        ui->tblProductos->setItem(
+            fila,
+            3,
+            new QTableWidgetItem(
+                QString::number(producto.precio, 'f', 2)
+                )
+            );
+
+        ui->tblProductos->setItem(
+            fila,
+            4,
+            new QTableWidgetItem(
+                QString::number(producto.stock)
+                )
+            );
+    }
+}
+
