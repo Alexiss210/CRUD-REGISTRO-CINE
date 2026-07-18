@@ -457,3 +457,22 @@ void MainWindow::buscarProducto()
         );
 }
 
+void MainWindow::limpiarFormulario()
+{
+    ui->txtCodigo->clear();
+    ui->txtNombre->clear();
+    ui->cmbCategoria->setCurrentIndex(0);
+    ui->txtPrecio->clear();
+    ui->txtStock->clear();
+
+    ui->tblProductos->clearSelection();
+
+    indiceSeleccionado = -1;
+
+    ui->btnGuardar->setEnabled(true);
+    ui->btnEditar->setEnabled(false);
+    ui->btnEliminar->setEnabled(false);
+
+    ui->txtCodigo->setFocus();
+}
+
