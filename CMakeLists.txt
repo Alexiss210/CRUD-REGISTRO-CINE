@@ -11,6 +11,7 @@ qt_add_executable(CRUD-CINE-PROYECTO
     mainwindow.cpp
     mainwindow.h
     mainwindow.ui
+    registro.h
 )
 
 target_link_libraries(CRUD-CINE-PROYECTO
