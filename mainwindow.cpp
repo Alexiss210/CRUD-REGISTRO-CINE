@@ -173,6 +173,18 @@ bool MainWindow::validarFormulario()
 
         return false;
     }
-
     return true;
 }
+
+int MainWindow::buscarIndicePorCodigo(int codigo)
+{
+    for (int i = 0; i < productos.size(); i++) {
+
+        if (productos[i].codigo == codigo) {
+            return i;
+        }
+    }
+
+    return -1;
+}
+
