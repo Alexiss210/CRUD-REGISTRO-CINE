@@ -476,3 +476,42 @@ void MainWindow::limpiarFormulario()
     ui->txtCodigo->setFocus();
 }
 
+void MainWindow::guardarProductosEnArchivo()
+{
+    QString ruta =
+        QDir::currentPath() + "/productos.txt";
+
+    QFile archivo(ruta);
+
+    if (!archivo.open(
+            QIODevice::WriteOnly |
+            QIODevice::Text)) {
+
+        QMessageBox::critical(
+            this,
+            "Error",
+            "No se pudo guardar el archivo."
+            );
+
+        return;
+    }
+
+    QTextStream salida(&archivo);
+
+    for (const Producto &producto : productos) {
+
+        salida << producto.codigo << ";"
+               << producto.nombre << ";"
+               << producto.categoria << ";"
+               << QString::number(
+                      producto.precio,
+                      'f',
+                      2
+                      ) << ";"
+               << producto.stock
+               << "\n";
+    }
+
+    archivo.close();
+}
+
