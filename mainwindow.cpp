@@ -515,3 +515,59 @@ void MainWindow::guardarProductosEnArchivo()
     archivo.close();
 }
 
+void MainWindow::cargarProductosDesdeArchivo()
+{
+    QString ruta =
+        QDir::currentPath() + "/productos.txt";
+
+    QFile archivo(ruta);
+
+    if (!archivo.exists()) {
+        return;
+    }
+
+    if (!archivo.open(
+            QIODevice::ReadOnly |
+            QIODevice::Text)) {
+
+        QMessageBox::warning(
+            this,
+            "Error",
+            "No se pudo abrir el archivo."
+            );
+
+        return;
+    }
+
+    QTextStream entrada(&archivo);
+
+    productos.clear();
+
+    while (!entrada.atEnd()) {
+
+        QString linea = entrada.readLine();
+
+        if (linea.trimmed().isEmpty()) {
+            continue;
+        }
+
+        QStringList datos = linea.split(";");
+
+        if (datos.size() != 5) {
+            continue;
+        }
+
+        Producto producto;
+
+        producto.codigo = datos[0].toInt();
+        producto.nombre = datos[1];
+        producto.categoria = datos[2];
+        producto.precio = datos[3].toDouble();
+        producto.stock = datos[4].toInt();
+
+        productos.append(producto);
+    }
+
+    archivo.close();
+}
+
