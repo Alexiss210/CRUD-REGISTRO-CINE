@@ -362,3 +362,40 @@ void MainWindow::editarProducto()
         );
 }
 
+void MainWindow::eliminarProducto()
+{
+    if (indiceSeleccionado == -1) {
+        QMessageBox::warning(
+            this,
+            "Sin selección",
+            "Seleccione un producto de la tabla."
+            );
+
+        return;
+    }
+
+    QMessageBox::StandardButton respuesta;
+
+    respuesta = QMessageBox::question(
+        this,
+        "Confirmar eliminación",
+        "¿Desea eliminar el producto?",
+        QMessageBox::Yes | QMessageBox::No
+        );
+
+    if (respuesta == QMessageBox::Yes) {
+
+        productos.removeAt(indiceSeleccionado);
+
+        guardarProductosEnArchivo();
+        actualizarTabla();
+        limpiarFormulario();
+
+        QMessageBox::information(
+            this,
+            "Producto eliminado",
+            "El producto fue eliminado correctamente."
+            );
+    }
+}
+
