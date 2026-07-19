@@ -1,5 +1,8 @@
 C:/Jaime\ Cusco_C++/CRUD-CINE-PROYECTO/build/Desktop_Qt_6_11_1_MinGW_64_bit_Debug/CRUD-CINE-PROYECTO_autogen/EWIEGA46WW/moc_mainwindow.cpp: C:/Jaime\ Cusco_C++/CRUD-CINE-PROYECTO/mainwindow.h \
   C:/Jaime\ Cusco_C++/CRUD-CINE-PROYECTO/build/Desktop_Qt_6_11_1_MinGW_64_bit_Debug/CRUD-CINE-PROYECTO_autogen/moc_predefs.h \
+  C:/Jaime\ Cusco_C++/CRUD-CINE-PROYECTO/registro.h \
+  C:/Qt/6.11.1/mingw_64/include/QtCore/QString \
+  C:/Qt/6.11.1/mingw_64/include/QtCore/QVector \
   C:/Qt/6.11.1/mingw_64/include/QtCore/q17memory.h \
   C:/Qt/6.11.1/mingw_64/include/QtCore/q20bit.h \
   C:/Qt/6.11.1/mingw_64/include/QtCore/q20functional.h \
@@ -125,6 +128,7 @@ C:/Jaime\ Cusco_C++/CRUD-CINE-PROYECTO/build/Desktop_Qt_6_11_1_MinGW_64_bit_Debu
   C:/Qt/6.11.1/mingw_64/include/QtCore/qutf8stringview.h \
   C:/Qt/6.11.1/mingw_64/include/QtCore/qvariant.h \
   C:/Qt/6.11.1/mingw_64/include/QtCore/qvarlengtharray.h \
+  C:/Qt/6.11.1/mingw_64/include/QtCore/qvector.h \
   C:/Qt/6.11.1/mingw_64/include/QtCore/qversiontagging.h \
   C:/Qt/6.11.1/mingw_64/include/QtCore/qxptype_traits.h \
   C:/Qt/6.11.1/mingw_64/include/QtCore/qyieldcpu.h \

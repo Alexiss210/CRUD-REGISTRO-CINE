@@ -17,9 +17,11 @@
 #include <QtWidgets/QHeaderView>
 #include <QtWidgets/QLabel>
 #include <QtWidgets/QLineEdit>
+#include <QtWidgets/QListWidget>
 #include <QtWidgets/QMainWindow>
 #include <QtWidgets/QMenuBar>
 #include <QtWidgets/QPushButton>
+#include <QtWidgets/QStackedWidget>
 #include <QtWidgets/QStatusBar>
 #include <QtWidgets/QTableWidget>
 #include <QtWidgets/QVBoxLayout>
@@ -31,27 +33,38 @@ class Ui_MainWindow
 {
 public:
     QWidget *centralwidget;
-    QWidget *widget;
+    QStackedWidget *stackedWidget;
+    QWidget *page_3;
+    QWidget *layoutWidget;
     QVBoxLayout *verticalLayout;
     QGridLayout *gridLayout;
-    QLabel *lblTitulo;
-    QLineEdit *txtCodigo;
+    QLineEdit *txtStock;
     QLabel *label_3;
-    QLineEdit *txtNombre;
-    QLabel *label_4;
     QComboBox *cmbCategoria;
     QLabel *label_5;
-    QLineEdit *txtPrecio;
-    QLabel *label_6;
-    QLineEdit *txtStock;
     QLabel *label_2;
+    QLineEdit *txtPrecio;
+    QLabel *label_4;
+    QLineEdit *txtNombre;
+    QLabel *label_6;
+    QLineEdit *txtCodigo;
     QHBoxLayout *horizontalLayout;
     QPushButton *btnGuardar;
     QPushButton *btnEditar;
     QPushButton *btnBuscar;
     QPushButton *btnEliminar;
     QPushButton *btnLimpiar;
+    QPushButton *btnVolverMenu1;
     QTableWidget *tblProductos;
+    QLabel *lblTitulo;
+    QWidget *page;
+    QLabel *label;
+    QPushButton *btnCategoria;
+    QPushButton *btnRegistros;
+    QWidget *page_2;
+    QLabel *lblTotalEntradas;
+    QListWidget *listaPeliculas;
+    QPushButton *btnVolverMenu2;
     QMenuBar *menubar;
     QStatusBar *statusbar;
 
@@ -59,53 +72,40 @@ public:
     {
         if (MainWindow->objectName().isEmpty())
             MainWindow->setObjectName("MainWindow");
-        MainWindow->resize(1103, 688);
+        MainWindow->resize(1163, 695);
         QFont font;
         font.setFamilies({QString::fromUtf8("Arial")});
         font.setPointSize(14);
         MainWindow->setFont(font);
         centralwidget = new QWidget(MainWindow);
         centralwidget->setObjectName("centralwidget");
-        widget = new QWidget(centralwidget);
-        widget->setObjectName("widget");
-        widget->setGeometry(QRect(170, 20, 821, 601));
-        verticalLayout = new QVBoxLayout(widget);
+        stackedWidget = new QStackedWidget(centralwidget);
+        stackedWidget->setObjectName("stackedWidget");
+        stackedWidget->setGeometry(QRect(0, 10, 1151, 591));
+        page_3 = new QWidget();
+        page_3->setObjectName("page_3");
+        layoutWidget = new QWidget(page_3);
+        layoutWidget->setObjectName("layoutWidget");
+        layoutWidget->setGeometry(QRect(101, 90, 901, 481));
+        verticalLayout = new QVBoxLayout(layoutWidget);
         verticalLayout->setObjectName("verticalLayout");
         verticalLayout->setContentsMargins(0, 0, 0, 0);
         gridLayout = new QGridLayout();
         gridLayout->setObjectName("gridLayout");
-        lblTitulo = new QLabel(widget);
-        lblTitulo->setObjectName("lblTitulo");
-        QFont font1;
-        font1.setFamilies({QString::fromUtf8("Arial")});
-        font1.setPointSize(18);
-        lblTitulo->setFont(font1);
+        txtStock = new QLineEdit(layoutWidget);
+        txtStock->setObjectName("txtStock");
 
-        gridLayout->addWidget(lblTitulo, 0, 1, 1, 1);
+        gridLayout->addWidget(txtStock, 4, 1, 1, 1);
 
-        txtCodigo = new QLineEdit(widget);
-        txtCodigo->setObjectName("txtCodigo");
-
-        gridLayout->addWidget(txtCodigo, 1, 1, 1, 1);
-
-        label_3 = new QLabel(widget);
+        label_3 = new QLabel(layoutWidget);
         label_3->setObjectName("label_3");
         label_3->setFont(font);
 
-        gridLayout->addWidget(label_3, 2, 0, 1, 1);
+        gridLayout->addWidget(label_3, 1, 0, 1, 1);
 
-        txtNombre = new QLineEdit(widget);
-        txtNombre->setObjectName("txtNombre");
-
-        gridLayout->addWidget(txtNombre, 2, 1, 1, 1);
-
-        label_4 = new QLabel(widget);
-        label_4->setObjectName("label_4");
-        label_4->setFont(font);
-
-        gridLayout->addWidget(label_4, 3, 0, 1, 1);
-
-        cmbCategoria = new QComboBox(widget);
+        cmbCategoria = new QComboBox(layoutWidget);
+        cmbCategoria->addItem(QString());
+        cmbCategoria->addItem(QString());
         cmbCategoria->addItem(QString());
         cmbCategoria->addItem(QString());
         cmbCategoria->addItem(QString());
@@ -114,70 +114,86 @@ public:
         cmbCategoria->addItem(QString());
         cmbCategoria->setObjectName("cmbCategoria");
 
-        gridLayout->addWidget(cmbCategoria, 3, 1, 1, 1);
+        gridLayout->addWidget(cmbCategoria, 2, 1, 1, 1);
 
-        label_5 = new QLabel(widget);
+        label_5 = new QLabel(layoutWidget);
         label_5->setObjectName("label_5");
         label_5->setFont(font);
 
-        gridLayout->addWidget(label_5, 4, 0, 1, 1);
+        gridLayout->addWidget(label_5, 3, 0, 1, 1);
 
-        txtPrecio = new QLineEdit(widget);
-        txtPrecio->setObjectName("txtPrecio");
-
-        gridLayout->addWidget(txtPrecio, 4, 1, 1, 1);
-
-        label_6 = new QLabel(widget);
-        label_6->setObjectName("label_6");
-        label_6->setFont(font);
-
-        gridLayout->addWidget(label_6, 5, 0, 1, 1);
-
-        txtStock = new QLineEdit(widget);
-        txtStock->setObjectName("txtStock");
-
-        gridLayout->addWidget(txtStock, 5, 1, 1, 1);
-
-        label_2 = new QLabel(widget);
+        label_2 = new QLabel(layoutWidget);
         label_2->setObjectName("label_2");
         label_2->setFont(font);
 
-        gridLayout->addWidget(label_2, 1, 0, 1, 1);
+        gridLayout->addWidget(label_2, 0, 0, 1, 1);
+
+        txtPrecio = new QLineEdit(layoutWidget);
+        txtPrecio->setObjectName("txtPrecio");
+
+        gridLayout->addWidget(txtPrecio, 3, 1, 1, 1);
+
+        label_4 = new QLabel(layoutWidget);
+        label_4->setObjectName("label_4");
+        label_4->setFont(font);
+
+        gridLayout->addWidget(label_4, 2, 0, 1, 1);
+
+        txtNombre = new QLineEdit(layoutWidget);
+        txtNombre->setObjectName("txtNombre");
+
+        gridLayout->addWidget(txtNombre, 1, 1, 1, 1);
+
+        label_6 = new QLabel(layoutWidget);
+        label_6->setObjectName("label_6");
+        label_6->setFont(font);
+
+        gridLayout->addWidget(label_6, 4, 0, 1, 1);
+
+        txtCodigo = new QLineEdit(layoutWidget);
+        txtCodigo->setObjectName("txtCodigo");
+
+        gridLayout->addWidget(txtCodigo, 0, 1, 1, 1);
 
 
         verticalLayout->addLayout(gridLayout);
 
         horizontalLayout = new QHBoxLayout();
         horizontalLayout->setObjectName("horizontalLayout");
-        btnGuardar = new QPushButton(widget);
+        btnGuardar = new QPushButton(layoutWidget);
         btnGuardar->setObjectName("btnGuardar");
 
         horizontalLayout->addWidget(btnGuardar);
 
-        btnEditar = new QPushButton(widget);
+        btnEditar = new QPushButton(layoutWidget);
         btnEditar->setObjectName("btnEditar");
 
         horizontalLayout->addWidget(btnEditar);
 
-        btnBuscar = new QPushButton(widget);
+        btnBuscar = new QPushButton(layoutWidget);
         btnBuscar->setObjectName("btnBuscar");
 
         horizontalLayout->addWidget(btnBuscar);
 
-        btnEliminar = new QPushButton(widget);
+        btnEliminar = new QPushButton(layoutWidget);
         btnEliminar->setObjectName("btnEliminar");
 
         horizontalLayout->addWidget(btnEliminar);
 
-        btnLimpiar = new QPushButton(widget);
+        btnLimpiar = new QPushButton(layoutWidget);
         btnLimpiar->setObjectName("btnLimpiar");
 
         horizontalLayout->addWidget(btnLimpiar);
 
+        btnVolverMenu1 = new QPushButton(layoutWidget);
+        btnVolverMenu1->setObjectName("btnVolverMenu1");
+
+        horizontalLayout->addWidget(btnVolverMenu1);
+
 
         verticalLayout->addLayout(horizontalLayout);
 
-        tblProductos = new QTableWidget(widget);
+        tblProductos = new QTableWidget(layoutWidget);
         if (tblProductos->columnCount() < 5)
             tblProductos->setColumnCount(5);
         QTableWidgetItem *__qtablewidgetitem = new QTableWidgetItem();
@@ -192,13 +208,57 @@ public:
         tblProductos->setHorizontalHeaderItem(4, __qtablewidgetitem4);
         tblProductos->setObjectName("tblProductos");
         tblProductos->setColumnCount(5);
+        tblProductos->horizontalHeader()->setMinimumSectionSize(56);
 
         verticalLayout->addWidget(tblProductos);
 
+        lblTitulo = new QLabel(page_3);
+        lblTitulo->setObjectName("lblTitulo");
+        lblTitulo->setGeometry(QRect(330, 30, 463, 33));
+        QFont font1;
+        font1.setFamilies({QString::fromUtf8("Arial")});
+        font1.setPointSize(24);
+        font1.setBold(true);
+        lblTitulo->setFont(font1);
+        stackedWidget->addWidget(page_3);
+        page = new QWidget();
+        page->setObjectName("page");
+        label = new QLabel(page);
+        label->setObjectName("label");
+        label->setGeometry(QRect(310, 180, 601, 161));
+        QFont font2;
+        font2.setFamilies({QString::fromUtf8("Bauhaus 93")});
+        font2.setPointSize(36);
+        font2.setBold(false);
+        label->setFont(font2);
+        btnCategoria = new QPushButton(page);
+        btnCategoria->setObjectName("btnCategoria");
+        btnCategoria->setGeometry(QRect(290, 430, 201, 81));
+        btnRegistros = new QPushButton(page);
+        btnRegistros->setObjectName("btnRegistros");
+        btnRegistros->setGeometry(QRect(680, 430, 181, 71));
+        stackedWidget->addWidget(page);
+        page_2 = new QWidget();
+        page_2->setObjectName("page_2");
+        lblTotalEntradas = new QLabel(page_2);
+        lblTotalEntradas->setObjectName("lblTotalEntradas");
+        lblTotalEntradas->setGeometry(QRect(290, 50, 611, 61));
+        QFont font3;
+        font3.setFamilies({QString::fromUtf8("Arial")});
+        font3.setPointSize(28);
+        font3.setBold(true);
+        lblTotalEntradas->setFont(font3);
+        listaPeliculas = new QListWidget(page_2);
+        listaPeliculas->setObjectName("listaPeliculas");
+        listaPeliculas->setGeometry(QRect(90, 120, 971, 361));
+        btnVolverMenu2 = new QPushButton(page_2);
+        btnVolverMenu2->setObjectName("btnVolverMenu2");
+        btnVolverMenu2->setGeometry(QRect(480, 520, 201, 61));
+        stackedWidget->addWidget(page_2);
         MainWindow->setCentralWidget(centralwidget);
         menubar = new QMenuBar(MainWindow);
         menubar->setObjectName("menubar");
-        menubar->setGeometry(QRect(0, 0, 1103, 32));
+        menubar->setGeometry(QRect(0, 0, 1163, 32));
         MainWindow->setMenuBar(menubar);
         statusbar = new QStatusBar(MainWindow);
         statusbar->setObjectName("statusbar");
@@ -206,37 +266,42 @@ public:
 
         retranslateUi(MainWindow);
 
+        stackedWidget->setCurrentIndex(1);
+
+
         QMetaObject::connectSlotsByName(MainWindow);
     } // setupUi
 
     void retranslateUi(QMainWindow *MainWindow)
     {
         MainWindow->setWindowTitle(QCoreApplication::translate("MainWindow", "MainWindow", nullptr));
-        lblTitulo->setText(QCoreApplication::translate("MainWindow", "GESTION DE CINE", nullptr));
-        txtCodigo->setPlaceholderText(QCoreApplication::translate("MainWindow", "001", nullptr));
-        label_3->setText(QCoreApplication::translate("MainWindow", "Nombre:", nullptr));
-        txtNombre->setText(QString());
-        txtNombre->setPlaceholderText(QCoreApplication::translate("MainWindow", "Avatar", nullptr));
-        label_4->setText(QCoreApplication::translate("MainWindow", "Categoria:", nullptr));
-        cmbCategoria->setItemText(0, QCoreApplication::translate("MainWindow", "Seleccione una categoria", nullptr));
-        cmbCategoria->setItemText(1, QCoreApplication::translate("MainWindow", "Terror", nullptr));
-        cmbCategoria->setItemText(2, QCoreApplication::translate("MainWindow", "Comedia", nullptr));
-        cmbCategoria->setItemText(3, QCoreApplication::translate("MainWindow", "Accion", nullptr));
-        cmbCategoria->setItemText(4, QCoreApplication::translate("MainWindow", "Drama", nullptr));
-        cmbCategoria->setItemText(5, QCoreApplication::translate("MainWindow", "Ciencia Ficcion", nullptr));
-
-        label_5->setText(QCoreApplication::translate("MainWindow", "Precio:", nullptr));
-        txtPrecio->setText(QString());
-        txtPrecio->setPlaceholderText(QCoreApplication::translate("MainWindow", "7.50", nullptr));
-        label_6->setText(QCoreApplication::translate("MainWindow", "Stock:", nullptr));
         txtStock->setText(QString());
         txtStock->setPlaceholderText(QCoreApplication::translate("MainWindow", "25", nullptr));
+        label_3->setText(QCoreApplication::translate("MainWindow", "Nombre:", nullptr));
+        cmbCategoria->setItemText(0, QCoreApplication::translate("MainWindow", "Seleccione una categoria", nullptr));
+        cmbCategoria->setItemText(1, QCoreApplication::translate("MainWindow", "Aventura", nullptr));
+        cmbCategoria->setItemText(2, QCoreApplication::translate("MainWindow", "Suspenso", nullptr));
+        cmbCategoria->setItemText(3, QCoreApplication::translate("MainWindow", "Terror", nullptr));
+        cmbCategoria->setItemText(4, QCoreApplication::translate("MainWindow", "Comedia", nullptr));
+        cmbCategoria->setItemText(5, QCoreApplication::translate("MainWindow", "Accion", nullptr));
+        cmbCategoria->setItemText(6, QCoreApplication::translate("MainWindow", "Drama", nullptr));
+        cmbCategoria->setItemText(7, QCoreApplication::translate("MainWindow", "Ciencia Ficcion", nullptr));
+
+        label_5->setText(QCoreApplication::translate("MainWindow", "Precio:", nullptr));
         label_2->setText(QCoreApplication::translate("MainWindow", "Codigo:", nullptr));
+        txtPrecio->setText(QString());
+        txtPrecio->setPlaceholderText(QCoreApplication::translate("MainWindow", "7.50", nullptr));
+        label_4->setText(QCoreApplication::translate("MainWindow", "Categoria:", nullptr));
+        txtNombre->setText(QString());
+        txtNombre->setPlaceholderText(QCoreApplication::translate("MainWindow", "Avatar", nullptr));
+        label_6->setText(QCoreApplication::translate("MainWindow", "Entradas:", nullptr));
+        txtCodigo->setPlaceholderText(QCoreApplication::translate("MainWindow", "001", nullptr));
         btnGuardar->setText(QCoreApplication::translate("MainWindow", "Guardar", nullptr));
         btnEditar->setText(QCoreApplication::translate("MainWindow", "Editar", nullptr));
         btnBuscar->setText(QCoreApplication::translate("MainWindow", "Buscar", nullptr));
         btnEliminar->setText(QCoreApplication::translate("MainWindow", "Eliminar", nullptr));
         btnLimpiar->setText(QCoreApplication::translate("MainWindow", "Limpiar", nullptr));
+        btnVolverMenu1->setText(QCoreApplication::translate("MainWindow", "MENU", nullptr));
         QTableWidgetItem *___qtablewidgetitem = tblProductos->horizontalHeaderItem(0);
         ___qtablewidgetitem->setText(QCoreApplication::translate("MainWindow", "Codigo", nullptr));
         QTableWidgetItem *___qtablewidgetitem1 = tblProductos->horizontalHeaderItem(1);
@@ -247,6 +312,12 @@ public:
         ___qtablewidgetitem3->setText(QCoreApplication::translate("MainWindow", "Precio", nullptr));
         QTableWidgetItem *___qtablewidgetitem4 = tblProductos->horizontalHeaderItem(4);
         ___qtablewidgetitem4->setText(QCoreApplication::translate("MainWindow", "Stock", nullptr));
+        lblTitulo->setText(QCoreApplication::translate("MainWindow", "REGISTRO DE CINE", nullptr));
+        label->setText(QCoreApplication::translate("MainWindow", "CINEMAX POLIMOVIE", nullptr));
+        btnCategoria->setText(QCoreApplication::translate("MainWindow", "REGISTRO", nullptr));
+        btnRegistros->setText(QCoreApplication::translate("MainWindow", "LISTADO", nullptr));
+        lblTotalEntradas->setText(QCoreApplication::translate("MainWindow", "Total Peliculas Registradas", nullptr));
+        btnVolverMenu2->setText(QCoreApplication::translate("MainWindow", "Volver al MENU", nullptr));
     } // retranslateUi
 
 };

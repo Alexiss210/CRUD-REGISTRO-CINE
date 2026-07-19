@@ -1,5 +1,6 @@
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
+#include <QDebug>
 
 #include <QMessageBox>
 #include <QTableWidgetItem>
@@ -99,8 +100,25 @@ MainWindow::MainWindow(QWidget *parent)
         &MainWindow::seleccionarProducto
         );
 
-    cargarProductosDesdeArchivo();
-    actualizarTabla();
+    // --- Navegación entre menús ---
+    connect(ui->btnCategoria, &QPushButton::clicked, this, [this]() {
+        ui->stackedWidget->setCurrentIndex(0);   // ir al CRUD (page_3)
+    });
+
+    connect(ui->btnRegistros, &QPushButton::clicked, this, [this]() {
+        actualizarResumenRegistros();
+        ui->stackedWidget->setCurrentIndex(2);   // ir a Registros (page_2)
+    });
+
+    connect(ui->btnVolverMenu1, &QPushButton::clicked, this, [this]() {
+        ui->stackedWidget->setCurrentIndex(1);   // volver al Menú (page)
+    });
+
+    connect(ui->btnVolverMenu2, &QPushButton::clicked, this, [this]() {
+        ui->stackedWidget->setCurrentIndex(1);   // volver al Menú (page)
+    });
+
+    ui->stackedWidget->setCurrentIndex(1);   // arranca en el Menú Principal (page)
 }
 
 MainWindow::~MainWindow()
@@ -570,4 +588,24 @@ void MainWindow::cargarProductosDesdeArchivo()
 
     archivo.close();
 }
+void MainWindow::actualizarResumenRegistros()
+{
+    ui->listaPeliculas->clear();
+    int totalEntradas = 0;
 
+    for (const Producto &p : productos) {
+        ui->listaPeliculas->addItem(
+            QString("%1 (%2) - $%3 - %4 entradas")
+                .arg(p.nombre,
+                     p.categoria,
+                     QString::number(p.precio, 'f', 2),
+                     QString::number(p.stock))
+            );
+
+        totalEntradas += p.stock;
+    }
+
+    ui->lblTotalEntradas->setText(
+        QString("Total de entradas registradas: %1").arg(totalEntradas)
+        );
+}

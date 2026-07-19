@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>1103</width>
-    <height>688</height>
+    <width>1163</width>
+    <height>695</height>
    </rect>
   </property>
   <property name="font">
@@ -20,241 +20,376 @@
    <string>MainWindow</string>
   </property>
   <widget class="QWidget" name="centralwidget">
-   <widget class="QWidget" name="">
+   <widget class="QStackedWidget" name="stackedWidget">
     <property name="geometry">
      <rect>
-      <x>170</x>
-      <y>20</y>
-      <width>821</width>
-      <height>601</height>
+      <x>0</x>
+      <y>10</y>
+      <width>1151</width>
+      <height>591</height>
      </rect>
     </property>
-    <layout class="QVBoxLayout" name="verticalLayout">
-     <item>
-      <layout class="QGridLayout" name="gridLayout">
-       <item row="0" column="1">
-        <widget class="QLabel" name="lblTitulo">
-         <property name="font">
-          <font>
-           <family>Arial</family>
-           <pointsize>18</pointsize>
-          </font>
-         </property>
-         <property name="text">
-          <string>GESTION DE CINE</string>
-         </property>
-        </widget>
+    <property name="currentIndex">
+     <number>1</number>
+    </property>
+    <widget class="QWidget" name="page_3">
+     <widget class="QWidget" name="layoutWidget">
+      <property name="geometry">
+       <rect>
+        <x>101</x>
+        <y>90</y>
+        <width>901</width>
+        <height>481</height>
+       </rect>
+      </property>
+      <layout class="QVBoxLayout" name="verticalLayout">
+       <item>
+        <layout class="QGridLayout" name="gridLayout">
+         <item row="4" column="1">
+          <widget class="QLineEdit" name="txtStock">
+           <property name="text">
+            <string/>
+           </property>
+           <property name="placeholderText">
+            <string>25</string>
+           </property>
+          </widget>
+         </item>
+         <item row="1" column="0">
+          <widget class="QLabel" name="label_3">
+           <property name="font">
+            <font>
+             <family>Arial</family>
+             <pointsize>14</pointsize>
+            </font>
+           </property>
+           <property name="text">
+            <string>Nombre:</string>
+           </property>
+          </widget>
+         </item>
+         <item row="2" column="1">
+          <widget class="QComboBox" name="cmbCategoria">
+           <item>
+            <property name="text">
+             <string>Seleccione una categoria</string>
+            </property>
+           </item>
+           <item>
+            <property name="text">
+             <string>Aventura</string>
+            </property>
+           </item>
+           <item>
+            <property name="text">
+             <string>Suspenso</string>
+            </property>
+           </item>
+           <item>
+            <property name="text">
+             <string>Terror</string>
+            </property>
+           </item>
+           <item>
+            <property name="text">
+             <string>Comedia</string>
+            </property>
+           </item>
+           <item>
+            <property name="text">
+             <string>Accion</string>
+            </property>
+           </item>
+           <item>
+            <property name="text">
+             <string>Drama</string>
+            </property>
+           </item>
+           <item>
+            <property name="text">
+             <string>Ciencia Ficcion</string>
+            </property>
+           </item>
+          </widget>
+         </item>
+         <item row="3" column="0">
+          <widget class="QLabel" name="label_5">
+           <property name="font">
+            <font>
+             <family>Arial</family>
+             <pointsize>14</pointsize>
+            </font>
+           </property>
+           <property name="text">
+            <string>Precio:</string>
+           </property>
+          </widget>
+         </item>
+         <item row="0" column="0">
+          <widget class="QLabel" name="label_2">
+           <property name="font">
+            <font>
+             <family>Arial</family>
+             <pointsize>14</pointsize>
+            </font>
+           </property>
+           <property name="text">
+            <string>Codigo:</string>
+           </property>
+          </widget>
+         </item>
+         <item row="3" column="1">
+          <widget class="QLineEdit" name="txtPrecio">
+           <property name="text">
+            <string/>
+           </property>
+           <property name="placeholderText">
+            <string>7.50</string>
+           </property>
+          </widget>
+         </item>
+         <item row="2" column="0">
+          <widget class="QLabel" name="label_4">
+           <property name="font">
+            <font>
+             <family>Arial</family>
+             <pointsize>14</pointsize>
+            </font>
+           </property>
+           <property name="text">
+            <string>Categoria:</string>
+           </property>
+          </widget>
+         </item>
+         <item row="1" column="1">
+          <widget class="QLineEdit" name="txtNombre">
+           <property name="text">
+            <string/>
+           </property>
+           <property name="placeholderText">
+            <string>Avatar</string>
+           </property>
+          </widget>
+         </item>
+         <item row="4" column="0">
+          <widget class="QLabel" name="label_6">
+           <property name="font">
+            <font>
+             <family>Arial</family>
+             <pointsize>14</pointsize>
+            </font>
+           </property>
+           <property name="text">
+            <string>Entradas:</string>
+           </property>
+          </widget>
+         </item>
+         <item row="0" column="1">
+          <widget class="QLineEdit" name="txtCodigo">
+           <property name="placeholderText">
+            <string>001</string>
+           </property>
+          </widget>
+         </item>
+        </layout>
        </item>
-       <item row="1" column="1">
-        <widget class="QLineEdit" name="txtCodigo">
-         <property name="placeholderText">
-          <string>001</string>
-         </property>
-        </widget>
-       </item>
-       <item row="2" column="0">
-        <widget class="QLabel" name="label_3">
-         <property name="font">
-          <font>
-           <family>Arial</family>
-           <pointsize>14</pointsize>
-          </font>
-         </property>
-         <property name="text">
-          <string>Nombre:</string>
-         </property>
-        </widget>
-       </item>
-       <item row="2" column="1">
-        <widget class="QLineEdit" name="txtNombre">
-         <property name="text">
-          <string/>
-         </property>
-         <property name="placeholderText">
-          <string>Avatar</string>
-         </property>
-        </widget>
-       </item>
-       <item row="3" column="0">
-        <widget class="QLabel" name="label_4">
-         <property name="font">
-          <font>
-           <family>Arial</family>
-           <pointsize>14</pointsize>
-          </font>
-         </property>
-         <property name="text">
-          <string>Categoria:</string>
-         </property>
-        </widget>
-       </item>
-       <item row="3" column="1">
-        <widget class="QComboBox" name="cmbCategoria">
+       <item>
+        <layout class="QHBoxLayout" name="horizontalLayout">
          <item>
-          <property name="text">
-           <string>Seleccione una categoria</string>
-          </property>
+          <widget class="QPushButton" name="btnGuardar">
+           <property name="text">
+            <string>Guardar</string>
+           </property>
+          </widget>
          </item>
          <item>
-          <property name="text">
-           <string>Terror</string>
-          </property>
+          <widget class="QPushButton" name="btnEditar">
+           <property name="text">
+            <string>Editar</string>
+           </property>
+          </widget>
          </item>
          <item>
-          <property name="text">
-           <string>Comedia</string>
-          </property>
+          <widget class="QPushButton" name="btnBuscar">
+           <property name="text">
+            <string>Buscar</string>
+           </property>
+          </widget>
          </item>
          <item>
-          <property name="text">
-           <string>Accion</string>
-          </property>
+          <widget class="QPushButton" name="btnEliminar">
+           <property name="text">
+            <string>Eliminar</string>
+           </property>
+          </widget>
          </item>
          <item>
-          <property name="text">
-           <string>Drama</string>
-          </property>
+          <widget class="QPushButton" name="btnLimpiar">
+           <property name="text">
+            <string>Limpiar</string>
+           </property>
+          </widget>
          </item>
          <item>
-          <property name="text">
-           <string>Ciencia Ficcion</string>
-          </property>
+          <widget class="QPushButton" name="btnVolverMenu1">
+           <property name="text">
+            <string>MENU</string>
+           </property>
+          </widget>
          </item>
-        </widget>
+        </layout>
        </item>
-       <item row="4" column="0">
-        <widget class="QLabel" name="label_5">
-         <property name="font">
-          <font>
-           <family>Arial</family>
-           <pointsize>14</pointsize>
-          </font>
+       <item>
+        <widget class="QTableWidget" name="tblProductos">
+         <property name="columnCount">
+          <number>5</number>
          </property>
-         <property name="text">
-          <string>Precio:</string>
-         </property>
-        </widget>
-       </item>
-       <item row="4" column="1">
-        <widget class="QLineEdit" name="txtPrecio">
-         <property name="text">
-          <string/>
-         </property>
-         <property name="placeholderText">
-          <string>7.50</string>
-         </property>
-        </widget>
-       </item>
-       <item row="5" column="0">
-        <widget class="QLabel" name="label_6">
-         <property name="font">
-          <font>
-           <family>Arial</family>
-           <pointsize>14</pointsize>
-          </font>
-         </property>
-         <property name="text">
-          <string>Stock:</string>
-         </property>
-        </widget>
-       </item>
-       <item row="5" column="1">
-        <widget class="QLineEdit" name="txtStock">
-         <property name="text">
-          <string/>
-         </property>
-         <property name="placeholderText">
-          <string>25</string>
-         </property>
-        </widget>
-       </item>
-       <item row="1" column="0">
-        <widget class="QLabel" name="label_2">
-         <property name="font">
-          <font>
-           <family>Arial</family>
-           <pointsize>14</pointsize>
-          </font>
-         </property>
-         <property name="text">
-          <string>Codigo:</string>
-         </property>
+         <attribute name="horizontalHeaderMinimumSectionSize">
+          <number>56</number>
+         </attribute>
+         <column>
+          <property name="text">
+           <string>Codigo</string>
+          </property>
+         </column>
+         <column>
+          <property name="text">
+           <string>Nombre</string>
+          </property>
+         </column>
+         <column>
+          <property name="text">
+           <string>Categoria</string>
+          </property>
+         </column>
+         <column>
+          <property name="text">
+           <string>Precio</string>
+          </property>
+         </column>
+         <column>
+          <property name="text">
+           <string>Stock</string>
+          </property>
+         </column>
         </widget>
        </item>
       </layout>
-     </item>
-     <item>
-      <layout class="QHBoxLayout" name="horizontalLayout">
-       <item>
-        <widget class="QPushButton" name="btnGuardar">
-         <property name="text">
-          <string>Guardar</string>
-         </property>
-        </widget>
-       </item>
-       <item>
-        <widget class="QPushButton" name="btnEditar">
-         <property name="text">
-          <string>Editar</string>
-         </property>
-        </widget>
-       </item>
-       <item>
-        <widget class="QPushButton" name="btnBuscar">
-         <property name="text">
-          <string>Buscar</string>
-         </property>
-        </widget>
-       </item>
-       <item>
-        <widget class="QPushButton" name="btnEliminar">
-         <property name="text">
-          <string>Eliminar</string>
-         </property>
-        </widget>
-       </item>
-       <item>
-        <widget class="QPushButton" name="btnLimpiar">
-         <property name="text">
-          <string>Limpiar</string>
-         </property>
-        </widget>
-       </item>
-      </layout>
-     </item>
-     <item>
-      <widget class="QTableWidget" name="tblProductos">
-       <property name="columnCount">
-        <number>5</number>
-       </property>
-       <column>
-        <property name="text">
-         <string>Codigo</string>
-        </property>
-       </column>
-       <column>
-        <property name="text">
-         <string>Nombre</string>
-        </property>
-       </column>
-       <column>
-        <property name="text">
-         <string>Categoria</string>
-        </property>
-       </column>
-       <column>
-        <property name="text">
-         <string>Precio</string>
-        </property>
-       </column>
-       <column>
-        <property name="text">
-         <string>Stock</string>
-        </property>
-       </column>
-      </widget>
-     </item>
-    </layout>
+     </widget>
+     <widget class="QLabel" name="lblTitulo">
+      <property name="geometry">
+       <rect>
+        <x>330</x>
+        <y>30</y>
+        <width>463</width>
+        <height>33</height>
+       </rect>
+      </property>
+      <property name="font">
+       <font>
+        <family>Arial</family>
+        <pointsize>24</pointsize>
+        <bold>true</bold>
+       </font>
+      </property>
+      <property name="text">
+       <string>REGISTRO DE CINE</string>
+      </property>
+     </widget>
+    </widget>
+    <widget class="QWidget" name="page">
+     <widget class="QLabel" name="label">
+      <property name="geometry">
+       <rect>
+        <x>310</x>
+        <y>180</y>
+        <width>601</width>
+        <height>161</height>
+       </rect>
+      </property>
+      <property name="font">
+       <font>
+        <family>Bauhaus 93</family>
+        <pointsize>36</pointsize>
+        <bold>false</bold>
+       </font>
+      </property>
+      <property name="text">
+       <string>CINEMAX POLIMOVIE</string>
+      </property>
+     </widget>
+     <widget class="QPushButton" name="btnCategoria">
+      <property name="geometry">
+       <rect>
+        <x>290</x>
+        <y>430</y>
+        <width>201</width>
+        <height>81</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>REGISTRO</string>
+      </property>
+     </widget>
+     <widget class="QPushButton" name="btnRegistros">
+      <property name="geometry">
+       <rect>
+        <x>680</x>
+        <y>430</y>
+        <width>181</width>
+        <height>71</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>LISTADO</string>
+      </property>
+     </widget>
+    </widget>
+    <widget class="QWidget" name="page_2">
+     <widget class="QLabel" name="lblTotalEntradas">
+      <property name="geometry">
+       <rect>
+        <x>290</x>
+        <y>50</y>
+        <width>611</width>
+        <height>61</height>
+       </rect>
+      </property>
+      <property name="font">
+       <font>
+        <family>Arial</family>
+        <pointsize>28</pointsize>
+        <bold>true</bold>
+       </font>
+      </property>
+      <property name="text">
+       <string>Total Peliculas Registradas</string>
+      </property>
+     </widget>
+     <widget class="QListWidget" name="listaPeliculas">
+      <property name="geometry">
+       <rect>
+        <x>90</x>
+        <y>120</y>
+        <width>971</width>
+        <height>361</height>
+       </rect>
+      </property>
+     </widget>
+     <widget class="QPushButton" name="btnVolverMenu2">
+      <property name="geometry">
+       <rect>
+        <x>480</x>
+        <y>520</y>
+        <width>201</width>
+        <height>61</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>Volver al MENU</string>
+      </property>
+     </widget>
+    </widget>
    </widget>
   </widget>
   <widget class="QMenuBar" name="menubar">
@@ -262,7 +397,7 @@
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>1103</width>
+     <width>1163</width>
      <height>32</height>
     </rect>
    </property>
