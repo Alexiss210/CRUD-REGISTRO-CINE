@@ -660,8 +660,20 @@ double MainWindow::calcularPrecioFinal()
 void MainWindow::actualizarPrecioEnPantalla()
 {
     double precio = calcularPrecioFinal();
+
+    QString nombrePelicula = ui->cmbPelicula->currentText();
+    int stockDisponible = 0;
+    for (const Producto &p : productos) {
+        if (p.nombre == nombrePelicula) {
+            stockDisponible = p.stock;
+            break;
+        }
+    }
+
     ui->lblPrecioFinal->setText(
-        QString("Precio final: $%1").arg(QString::number(precio, 'f', 2))
+        QString("Precio final: $%1  |  Entradas disponibles: %2")
+            .arg(QString::number(precio, 'f', 2))
+            .arg(stockDisponible)
         );
 }
 
@@ -672,30 +684,57 @@ void MainWindow::guardarVenta()
         return;
     }
 
-    Venta v;
-    v.id = ventas.size() + 1;
-    v.pelicula = ui->cmbPelicula->currentText();
-    v.tipoCliente = ui->cmbTipoCliente->currentText();
-    v.metodoPago = ui->cmbMetodoPago->currentText();
+    QString nombrePelicula = ui->cmbPelicula->currentText();
 
-    // Buscamos el precio base de la película seleccionada
-    v.precioBase = 0.0;
-    for (const Producto &p : productos) {
-        if (p.nombre == v.pelicula) {
-            v.precioBase = p.precio;
+    // Buscamos el índice de la película en la lista de productos
+    int indiceProducto = -1;
+    for (int i = 0; i < productos.size(); i++) {
+        if (productos[i].nombre == nombrePelicula) {
+            indiceProducto = i;
             break;
         }
     }
 
+    if (indiceProducto == -1) {
+        QMessageBox::warning(this, "Película no encontrada", "No se encontró esa película en Categoría.");
+        return;
+    }
+
+    // --- VALIDACIÓN DE STOCK ---
+    if (productos[indiceProducto].stock <= 0) {
+        QMessageBox::warning(
+            this,
+            "Sin entradas disponibles",
+            QString("Ya no quedan entradas disponibles para \"%1\".").arg(nombrePelicula)
+            );
+        return;
+    }
+
+    Venta v;
+    v.id = ventas.size() + 1;
+    v.pelicula = nombrePelicula;
+    v.tipoCliente = ui->cmbTipoCliente->currentText();
+    v.metodoPago = ui->cmbMetodoPago->currentText();
+    v.precioBase = productos[indiceProducto].precio;
     v.precioFinal = calcularPrecioFinal();
 
     ventas.append(v);
+
+    // --- RESTAR 1 AL STOCK ---
+    productos[indiceProducto].stock -= 1;
+    guardarProductosEnArchivo();
+    actualizarTabla();
 
     guardarVentasEnArchivo();
     actualizarTablaVentas();
     limpiarFormularioVenta();
 
-    QMessageBox::information(this, "Venta registrada", "El boleto se registró correctamente.");
+    QMessageBox::information(
+        this,
+        "Venta registrada",
+        QString("El boleto se registró correctamente.\nEntradas restantes: %1")
+            .arg(productos[indiceProducto].stock)
+        );
 }
 
 void MainWindow::actualizarTablaVentas()
@@ -748,7 +787,54 @@ void MainWindow::editarVenta()
     }
 
     Venta &v = ventas[indiceVentaSeleccionado];
-    v.pelicula = ui->cmbPelicula->currentText();
+    QString peliculaOriginal = v.pelicula;
+    QString peliculaNueva = ui->cmbPelicula->currentText();
+
+    // --- Si el usuario cambió de película, ajustamos el stock ---
+    if (peliculaOriginal != peliculaNueva) {
+
+        // Buscamos el índice de la película NUEVA
+        int indiceNueva = -1;
+        for (int i = 0; i < productos.size(); i++) {
+            if (productos[i].nombre == peliculaNueva) {
+                indiceNueva = i;
+                break;
+            }
+        }
+
+        if (indiceNueva == -1) {
+            QMessageBox::warning(this, "Película no encontrada", "No se encontró esa película en Categoría.");
+            return;
+        }
+
+        // Verificamos que la película nueva tenga stock disponible
+        if (productos[indiceNueva].stock <= 0) {
+            QMessageBox::warning(
+                this,
+                "Sin entradas disponibles",
+                QString("Ya no quedan entradas disponibles para \"%1\". No se puede cambiar la venta a esta película.")
+                    .arg(peliculaNueva)
+                );
+            return;
+        }
+
+        // Le devolvemos 1 a la película ORIGINAL
+        for (int i = 0; i < productos.size(); i++) {
+            if (productos[i].nombre == peliculaOriginal) {
+                productos[i].stock += 1;
+                break;
+            }
+        }
+
+        // Le restamos 1 a la película NUEVA
+        productos[indiceNueva].stock -= 1;
+
+        guardarProductosEnArchivo();
+        actualizarTabla();
+    }
+
+    // Actualizamos los datos de la venta
+    v.pelicula = peliculaNueva;
     v.tipoCliente = ui->cmbTipoCliente->currentText();
     v.metodoPago = ui->cmbMetodoPago->currentText();
 
@@ -781,12 +867,24 @@ void MainWindow::eliminarVenta()
         );
 
     if (respuesta == QMessageBox::Yes) {
+        QString peliculaEliminada = ventas[indiceVentaSeleccionado].pelicula;
+
         ventas.removeAt(indiceVentaSeleccionado);
         guardarVentasEnArchivo();
         actualizarTablaVentas();
         limpiarFormularioVenta();
 
-        QMessageBox::information(this, "Venta eliminada", "El registro fue eliminado correctamente.");
+        // --- DEVOLVER 1 AL STOCK ---
+        for (int i = 0; i < productos.size(); i++) {
+            if (productos[i].nombre == peliculaEliminada) {
+                productos[i].stock += 1;
+                guardarProductosEnArchivo();
+                actualizarTabla();
+                break;
+            }
+        }
+
+        QMessageBox::information(this, "Venta eliminada", "El registro fue eliminado correctamente. Se devolvió 1 entrada al stock.");
     }
 }
 
