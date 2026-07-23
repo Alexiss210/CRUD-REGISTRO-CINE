@@ -443,9 +443,6 @@ CMakeFiles/CRUD-CINE-PROYECTO.dir/mainwindow.cpp.obj: \
  C:/Qt/6.11.1/mingw_64/include/QtGui/qtextformat.h \
  C:/Qt/6.11.1/mingw_64/include/QtGui/qpen.h \
  C:/Qt/6.11.1/mingw_64/include/QtGui/qtextoption.h \
- C:/Qt/6.11.1/mingw_64/include/QtWidgets/QListWidget \
- C:/Qt/6.11.1/mingw_64/include/QtWidgets/qlistwidget.h \
- C:/Qt/6.11.1/mingw_64/include/QtWidgets/qlistview.h \
  C:/Qt/6.11.1/mingw_64/include/QtWidgets/QMainWindow \
  C:/Qt/6.11.1/mingw_64/include/QtWidgets/QMenuBar \
  C:/Qt/6.11.1/mingw_64/include/QtWidgets/qmenubar.h \

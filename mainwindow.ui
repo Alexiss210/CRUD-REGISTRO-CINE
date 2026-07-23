@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>1163</width>
-    <height>695</height>
+    <width>1194</width>
+    <height>690</height>
    </rect>
   </property>
   <property name="font">
@@ -24,20 +24,20 @@
     <property name="geometry">
      <rect>
       <x>0</x>
-      <y>10</y>
-      <width>1151</width>
-      <height>591</height>
+      <y>0</y>
+      <width>1171</width>
+      <height>677</height>
      </rect>
     </property>
     <property name="currentIndex">
-     <number>1</number>
+     <number>2</number>
     </property>
     <widget class="QWidget" name="page_3">
      <widget class="QWidget" name="layoutWidget">
       <property name="geometry">
        <rect>
-        <x>101</x>
-        <y>90</y>
+        <x>130</x>
+        <y>110</y>
         <width>901</width>
         <height>481</height>
        </rect>
@@ -279,16 +279,16 @@
      <widget class="QLabel" name="lblTitulo">
       <property name="geometry">
        <rect>
-        <x>330</x>
-        <y>30</y>
-        <width>463</width>
-        <height>33</height>
+        <x>380</x>
+        <y>40</y>
+        <width>481</width>
+        <height>51</height>
        </rect>
       </property>
       <property name="font">
        <font>
         <family>Arial</family>
-        <pointsize>24</pointsize>
+        <pointsize>28</pointsize>
         <bold>true</bold>
        </font>
       </property>
@@ -344,50 +344,230 @@
        <string>LISTADO</string>
       </property>
      </widget>
-    </widget>
-    <widget class="QWidget" name="page_2">
-     <widget class="QLabel" name="lblTotalEntradas">
+     <widget class="QLabel" name="label_7">
       <property name="geometry">
        <rect>
-        <x>290</x>
-        <y>50</y>
-        <width>611</width>
+        <x>380</x>
+        <y>320</y>
+        <width>461</width>
         <height>61</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>FORMACION DE TECNOLOGOS</string>
+      </property>
+     </widget>
+    </widget>
+    <widget class="QWidget" name="page_2">
+     <widget class="QPushButton" name="btnVolverMenu2">
+      <property name="geometry">
+       <rect>
+        <x>100</x>
+        <y>570</y>
+        <width>172</width>
+        <height>35</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>Volver al MENU</string>
+      </property>
+     </widget>
+     <widget class="QLabel" name="lblPrecioFinal">
+      <property name="geometry">
+       <rect>
+        <x>860</x>
+        <y>540</y>
+        <width>251</width>
+        <height>81</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>Precio final: $0.00</string>
+      </property>
+     </widget>
+     <widget class="QLabel" name="label_11">
+      <property name="geometry">
+       <rect>
+        <x>410</x>
+        <y>30</y>
+        <width>471</width>
+        <height>41</height>
        </rect>
       </property>
       <property name="font">
        <font>
         <family>Arial</family>
         <pointsize>28</pointsize>
-        <bold>true</bold>
        </font>
       </property>
       <property name="text">
-       <string>Total Peliculas Registradas</string>
+       <string>METODO DE PAGO</string>
       </property>
      </widget>
-     <widget class="QListWidget" name="listaPeliculas">
+     <widget class="QWidget" name="">
       <property name="geometry">
        <rect>
-        <x>90</x>
-        <y>120</y>
-        <width>971</width>
-        <height>361</height>
+        <x>50</x>
+        <y>100</y>
+        <width>1051</width>
+        <height>431</height>
        </rect>
       </property>
-     </widget>
-     <widget class="QPushButton" name="btnVolverMenu2">
-      <property name="geometry">
-       <rect>
-        <x>480</x>
-        <y>520</y>
-        <width>201</width>
-        <height>61</height>
-       </rect>
-      </property>
-      <property name="text">
-       <string>Volver al MENU</string>
-      </property>
+      <layout class="QVBoxLayout" name="verticalLayout_2">
+       <item>
+        <layout class="QVBoxLayout" name="verticalLayout_5">
+         <item>
+          <layout class="QHBoxLayout" name="horizontalLayout_2">
+           <item>
+            <layout class="QVBoxLayout" name="verticalLayout_4">
+             <item>
+              <widget class="QLabel" name="label_8">
+               <property name="text">
+                <string>Pelicula:</string>
+               </property>
+              </widget>
+             </item>
+             <item>
+              <widget class="QLabel" name="label_9">
+               <property name="text">
+                <string>Tipo de Cliente:</string>
+               </property>
+              </widget>
+             </item>
+             <item>
+              <widget class="QLabel" name="label_10">
+               <property name="text">
+                <string>Metodo de Pago:</string>
+               </property>
+              </widget>
+             </item>
+            </layout>
+           </item>
+           <item>
+            <layout class="QVBoxLayout" name="verticalLayout_3">
+             <item>
+              <widget class="QComboBox" name="cmbPelicula">
+               <item>
+                <property name="text">
+                 <string>Seleccione Tipo de Pelicula:</string>
+                </property>
+               </item>
+              </widget>
+             </item>
+             <item>
+              <widget class="QComboBox" name="cmbTipoCliente">
+               <item>
+                <property name="text">
+                 <string>Adulto</string>
+                </property>
+               </item>
+               <item>
+                <property name="text">
+                 <string>Adulto Mayor</string>
+                </property>
+               </item>
+               <item>
+                <property name="text">
+                 <string>Infantil</string>
+                </property>
+               </item>
+              </widget>
+             </item>
+             <item>
+              <widget class="QComboBox" name="cmbMetodoPago">
+               <item>
+                <property name="text">
+                 <string>Seleccione Metodo de Pago:</string>
+                </property>
+               </item>
+               <item>
+                <property name="text">
+                 <string>Efectivo</string>
+                </property>
+               </item>
+               <item>
+                <property name="text">
+                 <string>Tarjeta</string>
+                </property>
+               </item>
+               <item>
+                <property name="text">
+                 <string>Transferencia</string>
+                </property>
+               </item>
+              </widget>
+             </item>
+            </layout>
+           </item>
+          </layout>
+         </item>
+         <item>
+          <widget class="QTableWidget" name="tblVentas">
+           <property name="columnCount">
+            <number>5</number>
+           </property>
+           <column>
+            <property name="text">
+             <string>ID</string>
+            </property>
+           </column>
+           <column>
+            <property name="text">
+             <string>Pago</string>
+            </property>
+           </column>
+           <column>
+            <property name="text">
+             <string>Cliente</string>
+            </property>
+           </column>
+           <column>
+            <property name="text">
+             <string>Pago</string>
+            </property>
+           </column>
+           <column>
+            <property name="text">
+             <string>Precio Final</string>
+            </property>
+           </column>
+          </widget>
+         </item>
+        </layout>
+       </item>
+       <item>
+        <layout class="QHBoxLayout" name="horizontalLayout_3">
+         <item>
+          <widget class="QPushButton" name="btnLimpiarVenta">
+           <property name="text">
+            <string>Limpiar</string>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QPushButton" name="btnEliminarVenta">
+           <property name="text">
+            <string>Eliminar</string>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QPushButton" name="btnEditarVenta">
+           <property name="text">
+            <string>Editar</string>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QPushButton" name="btnGuardarVenta">
+           <property name="text">
+            <string>Guardar</string>
+           </property>
+          </widget>
+         </item>
+        </layout>
+       </item>
+      </layout>
      </widget>
     </widget>
    </widget>
@@ -397,7 +577,7 @@
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>1163</width>
+     <width>1194</width>
      <height>32</height>
     </rect>
    </property>

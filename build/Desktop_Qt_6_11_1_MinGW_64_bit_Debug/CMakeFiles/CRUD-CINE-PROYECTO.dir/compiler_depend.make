@@ -1008,7 +1008,6 @@ CMakeFiles/CRUD-CINE-PROYECTO.dir/mainwindow.cpp.obj: C:/Jaime\ Cusco_C++/CRUD-C
   C:/Qt/6.11.1/mingw_64/include/QtWidgets/QHeaderView \
   C:/Qt/6.11.1/mingw_64/include/QtWidgets/QLabel \
   C:/Qt/6.11.1/mingw_64/include/QtWidgets/QLineEdit \
-  C:/Qt/6.11.1/mingw_64/include/QtWidgets/QListWidget \
   C:/Qt/6.11.1/mingw_64/include/QtWidgets/QMainWindow \
   C:/Qt/6.11.1/mingw_64/include/QtWidgets/QMenuBar \
   C:/Qt/6.11.1/mingw_64/include/QtWidgets/QMessageBox \
@@ -1037,8 +1036,6 @@ CMakeFiles/CRUD-CINE-PROYECTO.dir/mainwindow.cpp.obj: C:/Jaime\ Cusco_C++/CRUD-C
   C:/Qt/6.11.1/mingw_64/include/QtWidgets/qlayout.h \
   C:/Qt/6.11.1/mingw_64/include/QtWidgets/qlayoutitem.h \
   C:/Qt/6.11.1/mingw_64/include/QtWidgets/qlineedit.h \
-  C:/Qt/6.11.1/mingw_64/include/QtWidgets/qlistview.h \
-  C:/Qt/6.11.1/mingw_64/include/QtWidgets/qlistwidget.h \
   C:/Qt/6.11.1/mingw_64/include/QtWidgets/qmainwindow.h \
   C:/Qt/6.11.1/mingw_64/include/QtWidgets/qmenu.h \
   C:/Qt/6.11.1/mingw_64/include/QtWidgets/qmenubar.h \
@@ -1370,11 +1367,11 @@ C:/Qt/6.11.1/mingw_64/include/QtCore/QString:
 
 C:/Qt/Tools/mingw1310_64/x86_64-w64-mingw32/include/swprintf.inl:
 
-C:/Qt/Tools/mingw1310_64/lib/gcc/x86_64-w64-mingw32/13.1.0/include/c++/x86_64-w64-mingw32/bits/ctype_base.h:
-
 C:/Qt/6.11.1/mingw_64/include/QtCore/q20functional.h:
 
 C:/Qt/Tools/mingw1310_64/lib/gcc/x86_64-w64-mingw32/13.1.0/include/c++/utility:
+
+C:/Qt/Tools/mingw1310_64/lib/gcc/x86_64-w64-mingw32/13.1.0/include/c++/x86_64-w64-mingw32/bits/ctype_base.h:
 
 C:/Qt/6.11.1/mingw_64/include/QtCore/qcontainerfwd.h:
 
@@ -1665,8 +1662,6 @@ C:/Qt/6.11.1/mingw_64/include/QtCore/qswap.h:
 C:/Qt/6.11.1/mingw_64/include/QtCore/qsysinfo.h:
 
 C:/Qt/Tools/mingw1310_64/lib/gcc/x86_64-w64-mingw32/13.1.0/include/c++/bits/refwrap.h:
-
-C:/Qt/6.11.1/mingw_64/include/QtWidgets/qlistview.h:
 
 C:/Qt/6.11.1/mingw_64/include/QtCore/qtaggedpointer.h:
 
@@ -2034,9 +2029,9 @@ C:/Qt/Tools/mingw1310_64/lib/gcc/x86_64-w64-mingw32/13.1.0/include/c++/map:
 
 C:/Qt/Tools/mingw1310_64/x86_64-w64-mingw32/include/math.h:
 
-C:/Qt/Tools/mingw1310_64/lib/gcc/x86_64-w64-mingw32/13.1.0/include/c++/x86_64-w64-mingw32/bits/messages_members.h:
-
 C:/Qt/Tools/mingw1310_64/lib/gcc/x86_64-w64-mingw32/13.1.0/include/c++/cassert:
+
+C:/Qt/Tools/mingw1310_64/lib/gcc/x86_64-w64-mingw32/13.1.0/include/c++/x86_64-w64-mingw32/bits/messages_members.h:
 
 C:/Qt/Tools/mingw1310_64/lib/gcc/x86_64-w64-mingw32/13.1.0/include/c++/cctype:
 
@@ -2124,9 +2119,9 @@ C:/Jaime\ Cusco_C++/CRUD-CINE-PROYECTO/mainwindow.cpp:
 
 C:/Qt/Tools/mingw1310_64/lib/gcc/x86_64-w64-mingw32/13.1.0/include/c++/ratio:
 
-C:/Qt/Tools/mingw1310_64/lib/gcc/x86_64-w64-mingw32/13.1.0/include/c++/x86_64-w64-mingw32/bits/ctype_inline.h:
-
 C:/Qt/Tools/mingw1310_64/lib/gcc/x86_64-w64-mingw32/13.1.0/include/c++/stdexcept:
+
+C:/Qt/Tools/mingw1310_64/lib/gcc/x86_64-w64-mingw32/13.1.0/include/c++/x86_64-w64-mingw32/bits/ctype_inline.h:
 
 C:/Qt/Tools/mingw1310_64/lib/gcc/x86_64-w64-mingw32/13.1.0/include/c++/stdlib.h:
 
@@ -2292,8 +2287,6 @@ C:/Qt/6.11.1/mingw_64/include/QtWidgets/QComboBox:
 
 C:/Qt/6.11.1/mingw_64/include/QtWidgets/QHeaderView:
 
-C:/Qt/6.11.1/mingw_64/include/QtWidgets/QListWidget:
-
 C:/Qt/6.11.1/mingw_64/include/QtWidgets/QMessageBox:
 
 C:/Qt/6.11.1/mingw_64/include/QtWidgets/QPushButton:
@@ -2321,8 +2314,6 @@ C:/Qt/6.11.1/mingw_64/include/QtWidgets/qgridlayout.h:
 C:/Qt/6.11.1/mingw_64/include/QtWidgets/qheaderview.h:
 
 C:/Qt/6.11.1/mingw_64/include/QtWidgets/qlayout.h:
-
-C:/Qt/6.11.1/mingw_64/include/QtWidgets/qlistwidget.h:
 
 C:/Qt/6.11.1/mingw_64/include/QtWidgets/qmenu.h:
 

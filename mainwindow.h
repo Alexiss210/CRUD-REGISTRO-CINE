@@ -21,15 +21,31 @@ private slots:
     void buscarProducto();
     void limpiarFormulario();
     void seleccionarProducto(int fila, int columna);
+
+    // --- NUEVO ---
+    void guardarVenta();
+    void editarVenta();
+    void eliminarVenta();
+    void limpiarFormularioVenta();
+    void seleccionarVenta(int fila, int columna);
+    void actualizarPrecioEnPantalla();      // recalcula en vivo al cambiar combos
 private:
     Ui::MainWindow *ui;
     QVector<Producto> productos;
+    QVector<Venta> ventas;                 // <-- NUEVO
     int indiceSeleccionado;
+    int indiceVentaSeleccionado;           // <-- NUEVO
     bool validarFormulario();
     int buscarIndicePorCodigo(int codigo);
     void actualizarTabla();
     void guardarProductosEnArchivo();
     void cargarProductosDesdeArchivo();
-    void actualizarResumenRegistros();   // <-- LÍNEA NUEVA
+
+    // --- NUEVO: CRUD de ventas ---
+    void llenarComboPeliculas();
+    double calcularPrecioFinal();
+    void actualizarTablaVentas();
+    void guardarVentasEnArchivo();
+    void cargarVentasDesdeArchivo();
 };
 #endif // MAINWINDOW_H

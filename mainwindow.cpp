@@ -15,6 +15,7 @@ MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
     , ui(new Ui::MainWindow)
     , indiceSeleccionado(-1)
+    , indiceVentaSeleccionado(-1)
 {
     ui->setupUi(this);
 
@@ -52,6 +53,25 @@ MainWindow::MainWindow(QWidget *parent)
     ui->tblProductos->horizontalHeader()->setSectionResizeMode(
         QHeaderView::Stretch
         );
+    // Configuración de la tabla de ventas
+    ui->tblVentas->setSelectionBehavior(QAbstractItemView::SelectRows);
+    ui->tblVentas->setSelectionMode(QAbstractItemView::SingleSelection);
+    ui->tblVentas->setEditTriggers(QAbstractItemView::NoEditTriggers);
+    ui->tblVentas->horizontalHeader()->setSectionResizeMode(QHeaderView::Stretch);
+
+    ui->btnEditarVenta->setEnabled(false);
+    ui->btnEliminarVenta->setEnabled(false);
+
+    connect(ui->btnGuardarVenta, &QPushButton::clicked, this, &MainWindow::guardarVenta);
+    connect(ui->btnEditarVenta, &QPushButton::clicked, this, &MainWindow::editarVenta);
+    connect(ui->btnEliminarVenta, &QPushButton::clicked, this, &MainWindow::eliminarVenta);
+    connect(ui->btnLimpiarVenta, &QPushButton::clicked, this, &MainWindow::limpiarFormularioVenta);
+    connect(ui->tblVentas, &QTableWidget::cellClicked, this, &MainWindow::seleccionarVenta);
+
+    // Recalcular el precio en pantalla cada vez que cambias algo
+    connect(ui->cmbPelicula, &QComboBox::currentTextChanged, this, &MainWindow::actualizarPrecioEnPantalla);
+    connect(ui->cmbTipoCliente, &QComboBox::currentTextChanged, this, &MainWindow::actualizarPrecioEnPantalla);
+    connect(ui->cmbMetodoPago, &QComboBox::currentTextChanged, this, &MainWindow::actualizarPrecioEnPantalla);
 
     // Estado inicial
     ui->btnEditar->setEnabled(false);
@@ -106,7 +126,9 @@ MainWindow::MainWindow(QWidget *parent)
     });
 
     connect(ui->btnRegistros, &QPushButton::clicked, this, [this]() {
-        actualizarResumenRegistros();
+        llenarComboPeliculas();
+        actualizarTablaVentas();
+        actualizarPrecioEnPantalla();
         ui->stackedWidget->setCurrentIndex(2);   // ir a Registros (page_2)
     });
 
@@ -119,6 +141,9 @@ MainWindow::MainWindow(QWidget *parent)
     });
 
     ui->stackedWidget->setCurrentIndex(1);   // arranca en el Menú Principal (page)
+
+    cargarVentasDesdeArchivo();
+    actualizarTablaVentas();
 }
 
 MainWindow::~MainWindow()
@@ -588,24 +613,253 @@ void MainWindow::cargarProductosDesdeArchivo()
 
     archivo.close();
 }
-void MainWindow::actualizarResumenRegistros()
+
+// Nuevo CRUD PARA el metodo de VENTA DE VOLETOS
+void MainWindow::llenarComboPeliculas()
 {
-    ui->listaPeliculas->clear();
-    int totalEntradas = 0;
+    ui->cmbPelicula->clear();
+    for (const Producto &p : productos) {
+        ui->cmbPelicula->addItem(p.nombre);
+    }
+}
+
+double MainWindow::calcularPrecioFinal()
+{
+    QString nombrePelicula = ui->cmbPelicula->currentText();
+    double precioBase = 0.0;
 
     for (const Producto &p : productos) {
-        ui->listaPeliculas->addItem(
-            QString("%1 (%2) - $%3 - %4 entradas")
-                .arg(p.nombre,
-                     p.categoria,
-                     QString::number(p.precio, 'f', 2),
-                     QString::number(p.stock))
-            );
-
-        totalEntradas += p.stock;
+        if (p.nombre == nombrePelicula) {
+            precioBase = p.precio;
+            break;
+        }
     }
 
-    ui->lblTotalEntradas->setText(
-        QString("Total de entradas registradas: %1").arg(totalEntradas)
+    // Aplicar tipo de cliente
+    QString tipoCliente = ui->cmbTipoCliente->currentText();
+
+    if (tipoCliente.startsWith("Infantil")) {
+        precioBase = precioBase * 0.50;   // 50% de descuento
+    } else if (tipoCliente.startsWith("Adulto Mayor")) {
+        precioBase = precioBase * 0.40;   // 60% de descuento (paga el 40%)
+    }
+    // Adulto normal no cambia el precio
+
+    // Aplicar método de pago
+    QString metodo = ui->cmbMetodoPago->currentText();
+    if (metodo == "Tarjeta") {
+        precioBase = precioBase * 1.15;
+    } else if (metodo == "Transferencia") {
+        precioBase = precioBase * 0.90;
+    }
+    // Efectivo no cambia el precio
+
+    return precioBase;
+}
+
+void MainWindow::actualizarPrecioEnPantalla()
+{
+    double precio = calcularPrecioFinal();
+    ui->lblPrecioFinal->setText(
+        QString("Precio final: $%1").arg(QString::number(precio, 'f', 2))
         );
+}
+
+void MainWindow::guardarVenta()
+{
+    if (ui->cmbPelicula->currentText().trimmed().isEmpty()) {
+        QMessageBox::warning(this, "Campo obligatorio", "Registra al menos una película en Categoría primero.");
+        return;
+    }
+
+    Venta v;
+    v.id = ventas.size() + 1;
+    v.pelicula = ui->cmbPelicula->currentText();
+    v.tipoCliente = ui->cmbTipoCliente->currentText();
+    v.metodoPago = ui->cmbMetodoPago->currentText();
+
+    // Buscamos el precio base de la película seleccionada
+    v.precioBase = 0.0;
+    for (const Producto &p : productos) {
+        if (p.nombre == v.pelicula) {
+            v.precioBase = p.precio;
+            break;
+        }
+    }
+
+    v.precioFinal = calcularPrecioFinal();
+
+    ventas.append(v);
+
+    guardarVentasEnArchivo();
+    actualizarTablaVentas();
+    limpiarFormularioVenta();
+
+    QMessageBox::information(this, "Venta registrada", "El boleto se registró correctamente.");
+}
+
+void MainWindow::actualizarTablaVentas()
+{
+    ui->tblVentas->setRowCount(ventas.size());
+
+    for (int fila = 0; fila < ventas.size(); fila++) {
+        const Venta &v = ventas[fila];
+
+        ui->tblVentas->setItem(fila, 0, new QTableWidgetItem(QString::number(v.id)));
+        ui->tblVentas->setItem(fila, 1, new QTableWidgetItem(v.pelicula));
+        ui->tblVentas->setItem(fila, 2, new QTableWidgetItem(v.tipoCliente));
+        ui->tblVentas->setItem(fila, 3, new QTableWidgetItem(v.metodoPago));
+        ui->tblVentas->setItem(fila, 4, new QTableWidgetItem(
+                                            QString("$%1").arg(QString::number(v.precioFinal, 'f', 2))
+                                            ));
+    }
+}
+
+void MainWindow::seleccionarVenta(int fila, int columna)
+{
+    Q_UNUSED(columna);
+
+    if (fila < 0 || fila >= ventas.size()) {
+        return;
+    }
+
+    indiceVentaSeleccionado = fila;
+    const Venta &v = ventas[fila];
+
+    int posicionPelicula = ui->cmbPelicula->findText(v.pelicula);
+    ui->cmbPelicula->setCurrentIndex(posicionPelicula);
+
+    int posicionCliente = ui->cmbTipoCliente->findText(v.tipoCliente);
+    ui->cmbTipoCliente->setCurrentIndex(posicionCliente);
+
+    int posicionPago = ui->cmbMetodoPago->findText(v.metodoPago);
+    ui->cmbMetodoPago->setCurrentIndex(posicionPago);
+
+    ui->btnGuardarVenta->setEnabled(false);
+    ui->btnEditarVenta->setEnabled(true);
+    ui->btnEliminarVenta->setEnabled(true);
+}
+
+void MainWindow::editarVenta()
+{
+    if (indiceVentaSeleccionado == -1) {
+        QMessageBox::warning(this, "Sin selección", "Selecciona una venta de la tabla.");
+        return;
+    }
+
+    Venta &v = ventas[indiceVentaSeleccionado];
+    v.pelicula = ui->cmbPelicula->currentText();
+    v.tipoCliente = ui->cmbTipoCliente->currentText();
+    v.metodoPago = ui->cmbMetodoPago->currentText();
+
+    for (const Producto &p : productos) {
+        if (p.nombre == v.pelicula) {
+            v.precioBase = p.precio;
+            break;
+        }
+    }
+
+    v.precioFinal = calcularPrecioFinal();
+
+    guardarVentasEnArchivo();
+    actualizarTablaVentas();
+    limpiarFormularioVenta();
+
+    QMessageBox::information(this, "Venta actualizada", "El registro fue actualizado correctamente.");
+}
+
+void MainWindow::eliminarVenta()
+{
+    if (indiceVentaSeleccionado == -1) {
+        QMessageBox::warning(this, "Sin selección", "Selecciona una venta de la tabla.");
+        return;
+    }
+
+    QMessageBox::StandardButton respuesta = QMessageBox::question(
+        this, "Confirmar eliminación", "¿Deseas eliminar esta venta?",
+        QMessageBox::Yes | QMessageBox::No
+        );
+
+    if (respuesta == QMessageBox::Yes) {
+        ventas.removeAt(indiceVentaSeleccionado);
+        guardarVentasEnArchivo();
+        actualizarTablaVentas();
+        limpiarFormularioVenta();
+
+        QMessageBox::information(this, "Venta eliminada", "El registro fue eliminado correctamente.");
+    }
+}
+
+void MainWindow::limpiarFormularioVenta()
+{
+    ui->cmbPelicula->setCurrentIndex(0);
+    ui->cmbTipoCliente->setCurrentIndex(0);
+    ui->cmbMetodoPago->setCurrentIndex(0);
+
+    ui->tblVentas->clearSelection();
+    indiceVentaSeleccionado = -1;
+
+    ui->btnGuardarVenta->setEnabled(true);
+    ui->btnEditarVenta->setEnabled(false);
+    ui->btnEliminarVenta->setEnabled(false);
+
+    actualizarPrecioEnPantalla();
+}
+
+void MainWindow::guardarVentasEnArchivo()
+{
+    QString ruta = QDir::currentPath() + "/ventas.txt";
+    QFile archivo(ruta);
+
+    if (!archivo.open(QIODevice::WriteOnly | QIODevice::Text)) {
+        QMessageBox::critical(this, "Error", "No se pudo guardar el archivo de ventas.");
+        return;
+    }
+
+    QTextStream salida(&archivo);
+    for (const Venta &v : ventas) {
+        salida << v.id << ";" << v.pelicula << ";" << v.tipoCliente << ";"
+               << v.metodoPago << ";"
+               << QString::number(v.precioBase, 'f', 2) << ";"
+               << QString::number(v.precioFinal, 'f', 2) << "\n";
+    }
+
+    archivo.close();
+}
+
+void MainWindow::cargarVentasDesdeArchivo()
+{
+    QString ruta = QDir::currentPath() + "/ventas.txt";
+    QFile archivo(ruta);
+
+    if (!archivo.exists()) {
+        return;
+    }
+
+    if (!archivo.open(QIODevice::ReadOnly | QIODevice::Text)) {
+        return;
+    }
+
+    QTextStream entrada(&archivo);
+    ventas.clear();
+
+    while (!entrada.atEnd()) {
+        QString linea = entrada.readLine();
+        if (linea.trimmed().isEmpty()) continue;
+
+        QStringList datos = linea.split(";");
+        if (datos.size() != 6) continue;
+
+        Venta v;
+        v.id = datos[0].toInt();
+        v.pelicula = datos[1];
+        v.tipoCliente = datos[2];
+        v.metodoPago = datos[3];
+        v.precioBase = datos[4].toDouble();
+        v.precioFinal = datos[5].toDouble();
+
+        ventas.append(v);
+    }
+
+    archivo.close();
 }
